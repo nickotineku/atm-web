@@ -29,19 +29,43 @@ public class BankAccountService {
         BankAccount[] accounts = response.getBody();
         return Arrays.asList(accounts);
     }
-    private List<BankAccount> bankAccountList;
 
-    @PostConstruct
-    public void postConstruct(){
-        this.bankAccountList = new ArrayList<>();
-    }
+    public void openAccount(BankAccount bankAccount){
 
-    public void createBankAccount(BankAccount bankAccount){
-        bankAccountList.add(bankAccount);
+        String url = "http://localhost:8091/api/bankaccount";
+        restTemplate.postForObject(url,bankAccount,BankAccount.class);
+
     }
 
     public List<BankAccount> getBankAccount(){
 
-        return new ArrayList<>(this.bankAccountList);
+        String url = "http://localhost:8091/api/bankaccount";
+        ResponseEntity<BankAccount[]> response = restTemplate.getForEntity(url,BankAccount[].class);
+        BankAccount[] accounts = response.getBody();
+        return Arrays.asList(accounts);
+
     }
+
+    public BankAccount getBankAccount(int id){
+        String url = "http://localhost:8091/api/bankaccount/" + id;
+        ResponseEntity<BankAccount> response = restTemplate.getForEntity(url,BankAccount.class);
+        return response.getBody();
+    }
+
+    public void editBankAccount(BankAccount bankAccount){
+        String url = "http://localhost:8091/api/bankaccount/" + bankAccount.getId();
+        restTemplate.put(url,bankAccount);
+
+    }
+
+//    private List<BankAccount> bankAccountList;
+//
+//    @PostConstruct
+//    public void postConstruct(){
+//        this.bankAccountList = new ArrayList<>();
+//    }
+//
+//    public void createBankAccount(BankAccount bankAccount){
+//        bankAccountList.add(bankAccount);
+//    }
 }
