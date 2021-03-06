@@ -38,13 +38,5 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    @Override
-    public String toString() {
-        return "BankAccount{" +
-                "id=" + id +
-                ", customerId=" + customerId +
-                ", type='" + type + '\'' +
-                ", balance=" + balance +
-                '}';
-    }
+
 }
